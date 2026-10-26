@@ -5,19 +5,26 @@ import json
 from ludwig.api import LudwigModel
 from ludwig.automl import auto_train
 from ray.tune import CheckpointConfig
+import shutil
+os.makedirs(r"D:\ray_tmp", exist_ok=True)
+os.environ["RAY_TMPDIR"] = r"D:\ray_tmp"
 
-#ini untuk download dataset dari kaggle, kalau udah pernah download, dia bakal baca dari path.txt
-if not os.path.exists('path.txt'):
-    kagglehub.login()
-    path = kagglehub.competition_download('titanic')
-    with open('path.txt', 'w') as f:
-        f.write(path)
+# Ini untuk download dataset dari kaggle, kalau udah pernah download, dia bakal baca dari path.txt
+# Membaca data langsung dari file lokal hasil unduhan manual
+df = pd.read_csv('train.csv')
 
-with open('path.txt', 'r') as f:
-    path = f.read().strip()
+print("=== Pengecekan File Data ===")
+print("Apakah data berhasil terbaca?", not df.empty)
+print("Jumlah baris dan kolom data:", df.shape)
+print("5 Baris data pertama:\n", df.head())
+print("============================")
 
 
-df = pd.read_csv(os.path.join(path, 'train.csv'))
+current_dir = os.getcwd()
+output_directory = os.path.join(current_dir, "results")
+
+
+
 
 current_dir = os.getcwd()
 output_directory = os.path.join(current_dir, "results")
@@ -33,8 +40,8 @@ auto_train_results = auto_train(
     user_config={
         "hyperopt": {
             "executor": {
-                "num_samples": 2, # ini jumlah trial yang mau di coba, aku set ke 2 karena kalau terlalu banyak bakal makan waktu lama
-                "max_concurrent_trials": 1, # ini di set ke satu aja, karena dia bisa bikin File permission error kalau trialnya bayak.
+                "num_samples": 2, 
+                "max_concurrent_trials": 1, 
                 "checkpoint_config": CheckpointConfig(
                     num_to_keep=1,
                     checkpoint_frequency=5,
@@ -43,6 +50,7 @@ auto_train_results = auto_train(
         }
     },
 )
+
 
 print("AutoML training completed!")
 # untuk ambil hasil terbaik dari auto_train, kita bisa ambil dari best_trial

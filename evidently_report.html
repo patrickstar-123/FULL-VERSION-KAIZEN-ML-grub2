@@ -1,0 +1,28 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Evidently AI Alternative - Data Drift Report</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; background-color: #f4f6f9; }
+        h1 { color: #1e293b; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; background: white; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background-color: #4f46e5; color: white; }
+        tr:hover { background-color: #f1f5f9; }
+    </style>
+</head>
+<body>
+    <h1>📊 Laporan Monitoring Data & Target Drift (Evidently AI Emulator)</h1>
+    <p>Hasil analisis perbandingan data training baseline (Reference) dengan data operasional baru (Current).</p>
+    <table>
+        <tr>
+            <th>Nama Fitur/Kolom</th>
+            <th>Tipe Data</th>
+            <th>Skor Pergeseran (Drift Score)</th>
+            <th>Status Keandalan Model</th>
+        </tr>
+<tr><td><b>Pclass</b></td><td>Numerik</td><td>0.0390</td><td>Stabil (Aman)</td></tr><tr><td><b>Sex</b></td><td>Kategorikal/Teks</td><td>0.0702</td><td>Stabil (Aman)</td></tr><tr><td><b>Age</b></td><td>Numerik</td><td>0.0436</td><td>Stabil (Aman)</td></tr><tr><td><b>SibSp</b></td><td>Numerik</td><td>0.3806</td><td>Terjadi Pergeseran (Drift)</td></tr><tr><td><b>Parch</b></td><td>Numerik</td><td>0.1299</td><td>Terjadi Pergeseran (Drift)</td></tr><tr><td><b>Fare</b></td><td>Numerik</td><td>0.0648</td><td>Stabil (Aman)</td></tr><tr><td><b>Survived</b></td><td>Numerik</td><td>0.0873</td><td>Stabil (Aman)</td></tr>
+    </table>
+</body>
+</html>
